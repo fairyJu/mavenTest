@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xw.dao.UserDao">
+    
+    <resultMap id="userMap" type="com.xw.bean.User">
+        <id column="userid" property="userid"></id>
+        <result column="username" property="username"></result>
+        <result column="pwd" property="pwd"></result>
+        <result column="email" property="email"></result>
+    </resultMap>
+
+
+    <!--查询和新增的id要和dao层接口的查询语句对应-->
+    <!--如果没有映射map的话需要写全类名-->
+    <select id="selAll" resultMap="userMap" resultType="com.xw.bean.User">
+
+        select * from uuser
+
+    </select>
+
+    <select id="login" resultMap="userMap" resultType="com.xw.bean.User">
+
+      select username,pwd from uuser where username=#{username} and pwd=#{pwd}
+
+    </select>
+
+    <select id="ckname" resultMap="userMap" resultType="com.xw.bean.User">
+
+      select * from uuser where username=#{username}
+
+    </select>
+
+    <select id="editUser" resultMap="userMap" resultType="com.xw.bean.User" parameterType="int">
+
+      select * from uuser where userid=#{id}
+
+    </select>
+
+    <delete id="delUser" parameterType="int">
+
+        delete from uuser where userid=#{id}
+
+    </delete>
+
+    <insert id="insertUser" parameterType="User">
+
+      insert into uuser values (#{userid},#{username},#{pwd},#{email})
+
+    </insert>
+
+</mapper>
